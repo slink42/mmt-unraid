@@ -87,11 +87,11 @@ Install script.
 	tar -vxzf &plugin;/install/mmt_&mmtversion;_linux_amd64.tar.gz -C &plugin;/install/&mmtversion;
 	echo "done"
 	echo "| Copying Unassigned Devices script to &plugin;/MediaManagerImport.sh ..." 
-	cp "&plugin;/install/MediaManagerImport.sh" "&plugin;/MediaManagerImport.sh"
-	chown root:root "&plugin;/MediaManagerImport.sh"
-	chmod 755 "&plugin;/MediaManagerImport.sh"
+	if [ -f "&plugin;/MediaManagerImport.sh" ] || ! [ -f "&plugin;/install/MediaManagerImport.sh" ]; then echo "MediaManagerImport.sh exists, leaving exiting copy in place" ; else cp "&plugin;/install/MediaManagerImport.sh" "&plugin;/MediaManagerImport.sh"; chown root:root "&plugin;/MediaManagerImport.sh"; chmod 755 "&plugin;/MediaManagerImport.sh; echo "Copied default Unassigned Drives script to &plugin;/MediaManagerImport.sh."; fi
 	echo "done"
-	if [ -f "&plugin;/mmt-auto-import.yaml" ] || ! [ -f "&plugin;/install/example-mmt-auto-import.yaml" ]; then echo "mmt-auto-import.yaml exists" ; else cp "&plugin;/install/example-mmt-auto-import.yaml" "&plugin;/mmt-auto-import.yaml"; echo "Copied default mmt config to &plugin;/mmt-auto-import.yaml. Please edit output directory"; fi
+	echo "| Copying default mmt config form example ..." 
+	if [ -f "&plugin;/mmt-auto-import.yaml" ] || ! [ -f "&plugin;/install/example-mmt-auto-import.yaml" ]; then echo "mmt-auto-import.yaml exists, leaving existing copy in place" ; else cp "&plugin;/install/example-mmt-auto-import.yaml" "&plugin;/mmt-auto-import.yaml"; echo "Copied default mmt config to &plugin;/mmt-auto-import.yaml. Please edit output directory"; fi
+	echo "done"
 	cp &plugin;/install/&mmtversion;/mmt /usr/sbin/mmt
 	chown root:root /usr/sbin/mmt
 	chmod 755 /usr/sbin/mmt
