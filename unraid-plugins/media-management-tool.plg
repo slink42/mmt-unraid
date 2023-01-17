@@ -1,0 +1,113 @@
+<?xml version='1.0' standalone='yes'?>
+
+<!-- PLUGIN DEFINITIONS -->
+<!DOCTYPE PLUGIN [
+	<!ENTITY name      "media-management-tool">
+	<!ENTITY author    "slink42">
+	<!ENTITY version   "2023.01.15">
+	<!ENTITY mmtversion "1.6">
+	<!ENTITY repo      "https://github.com/KonradIT/mmt/releases/download">
+	<!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/mmt/development/distribution/unraid-plugin/media-management-tool.plg">
+	<!ENTITY plugin    "/boot/config/plugins/&name;">
+	<!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
+]>
+
+<PLUGIN  name="&name;"
+		 author="&author;"
+		 version="&version;"
+		 pluginURL="&pluginURL;"
+>
+
+
+<CHANGES>
+###v1.5
+- Gopro time update by @daktak in #28
+- Fix bug where sort options weren't defaulted by @KonradIT in #38
+- times.BirthDate does not function on linux by @daktak in #37
+- Always use ModTime by @KonradIT in #41
+- Framerate precision using eval by @KonradIT in #42
+- Add more Golangci linters by @KonradIT in #39
+- Add concurrent import support to GoPro Connect by @KonradIT in #36
+- Doc updates by @KonradIT in #48
+- Apply LUT command by @KonradIT in #56
+- Add Location sort to GoPro, Android and DJI by @KonradIT in #50
+- fixes for using gopro connect with v1 cams by @KonradIT in #51
+- Organized error messages by @KonradIT in #45
+- Concurrent import: FS: Insta360, DJI, GoPro, Android by @KonradIT in #61
+- Move SRT to specified folder and disable importing it completely by @KonradIT in #62
+- Better support for proxies by @KonradIT in #63
+- readme fixes by @KonradIT in #65
+- Use my fork for GHA building + releasing by @KonradIT in #68
+- Skip .LRV files on Insta by @KonradIT in #67
+- Use goreleaser by @KonradIT in #69
+</CHANGES>
+
+
+<FILE Name="&emhttp;/README.md">
+<INLINE>
+**Media Management Tool**
+
+I've been using an assortment of scripts over the years to manage media from my different action cameras and drones, it's clear a centralized and unified solution is needed.
+
+This tool draws inspiration from my dji-utils/offload.sh script as well as the popular gopro-linux tool and @deviantollam's dohpro
+
+Right now the script supports these cameras:
+
+GoPro:
+HERO2 - HERO5
+MAX
+Fusion
+HERO6 - HERO11
+Insta360: X2, GO2, X3
+DJI: Osmo Pocket 1/2, DJI Osmo Action 1/2/3, Mavics, Minis
+Android: All, but with Pixel 6 (Google Camera) specific fixes
+</INLINE>
+</FILE>
+<FILE Name="&plugin;/install/mmt_&mmtversion;_linux_amd64.tar.gz">
+<URL>&repo;/v&mmtversion;/mmt_&mmtversion;_linux_amd64.tar.gz</URL>
+</FILE>
+
+<!--
+Install script.
+-->
+<FILE Run="/bin/bash" Method="install">
+<INLINE>
+
+	echo "+=============================================================================="
+	echo "| Installing &name;"
+	echo "+=============================================================================="
+	echo "| Extracting &plugin;/install/mmt_&mmtversion;_linux_amd64.tar.gz to &plugin;/install/&mmtversion; ..." 
+	mkdir -p &plugin;/install/&mmtversion;
+	tar -vxzf &plugin;/install/mmt_&mmtversion;_linux_amd64.tar.gz -C &plugin;/install/&mmtversion;
+	echo "done"
+	cp &plugin;/install/&mmtversion;/mmt /usr/sbin/mmt
+	chown root:root /usr/sbin/mmt
+	chmod 755 /usr/sbin/mmt
+	echo ""
+	echo "-----------------------------------------------------------"
+	echo " &name; has been installed."
+	echo "-----------------------------------------------------------"
+	echo ""
+
+</INLINE>
+</FILE>
+
+<!-- PLUGIN REMOVAL SCRIPT -->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+echo "+=============================================================================="
+echo "| Uninstalling &name;"
+echo "+=============================================================================="
+# Remove plugin related files
+rm -rf /usr/local/emhttp/plugins/&name;
+rm -rf /boot/config/plugins/&name;
+rm -rf /usr/sbin/&name;
+rm -rf /usr/sbin/mmt
+
+
+echo ""
+echo "&name; uninstalled. &name; will remain until your next system reboot."
+</INLINE>
+</FILE>
+
+</PLUGIN>
