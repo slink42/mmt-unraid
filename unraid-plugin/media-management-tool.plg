@@ -84,7 +84,7 @@ Install script.
 	mkdir -p &plugin;/install/&mmtversion;
 	tar -vxzf &plugin;/install/mmt_&mmtversion;_linux_amd64.tar.gz -C &plugin;/install/&mmtversion;
 	echo "done"
-	[ -f "&plugin;/mmt-auto-import.yaml" ] || () cp "&plugin;/install/example-mmt-auto-import.yaml" "&plugin;/mmt-auto-import.yaml" && echo "default config copied from &plugin;/install/example-mmt-auto-import.yaml to &plugin;/mmt-auto-import.yaml. Please edit output directory")
+	[ -f "&plugin;/mmt-auto-import.yaml" ] || ( cp "&plugin;/install/example-mmt-auto-import.yaml" "&plugin;/mmt-auto-import.yaml" && echo "default config copied from &plugin;/install/example-mmt-auto-import.yaml to &plugin;/mmt-auto-import.yaml. Please edit output directory")
 	cp &plugin;/install/&mmtversion;/mmt /usr/sbin/mmt
 	chown root:root /usr/sbin/mmt
 	chmod 755 /usr/sbin/mmt
