@@ -4,7 +4,7 @@
 <!DOCTYPE PLUGIN [
 	<!ENTITY name      "media-management-tool">
 	<!ENTITY author    "slink42">
-	<!ENTITY version   "2023.01.17">
+	<!ENTITY version   "2023.01.18">
 	<!ENTITY mmtversion "1.6">
 	<!ENTITY repo      "https://github.com/KonradIT/mmt/releases/download">
 	<!ENTITY pluginURLRoot "https://raw.githubusercontent.com/&author;/mmt-unraid/master">
@@ -86,6 +86,12 @@ Install script.
 	mkdir -p &plugin;/install/&mmtversion;
 	tar -vxzf &plugin;/install/mmt_&mmtversion;_linux_amd64.tar.gz -C &plugin;/install/&mmtversion;
 	echo "done"
+	echo "| Copying Unassigned Devices script to &plugin;/MediaManagerImport.sh ..." 
+	cp "&plugin;/install/MediaManagerImport.sh" "&plugin;/MediaManagerImport.sh"
+	chown root:root "&plugin;/MediaManagerImport.sh"
+	chmod 755 "&plugin;/MediaManagerImport.sh"
+	echo "done"
+	[ -f "&plugin;/mmt-auto-import.yaml" ] || ! [ -f "&plugin;/install/example-mmt-auto-import.yaml" ] || ( cp "&plugin;/install/example-mmt-auto-import.yaml" "&plugin;/mmt-auto-import.yaml" && echo "Copied default mmt config from &plugin;/install/example-mmt-auto-import.yaml to &plugin;/mmt-auto-import.yaml. Please edit output directory")
 	cp &plugin;/install/&mmtversion;/mmt /usr/sbin/mmt
 	chown root:root /usr/sbin/mmt
 	chmod 755 /usr/sbin/mmt
