@@ -91,7 +91,7 @@ Install script.
 	chown root:root "&plugin;/MediaManagerImport.sh"
 	chmod 755 "&plugin;/MediaManagerImport.sh"
 	echo "done"
-	[ -f "&plugin;/mmt-auto-import.yaml" ] || ! [ -f "&plugin;/install/example-mmt-auto-import.yaml" ] || ( cp "&plugin;/install/example-mmt-auto-import.yaml" "&plugin;/mmt-auto-import.yaml" )
+	if [ -f "&plugin;/mmt-auto-import.yaml" ] || ! [ -f "&plugin;/install/example-mmt-auto-import.yaml" ]; then echo "mmt-auto-import.yaml exists" ; else cp "&plugin;/install/example-mmt-auto-import.yaml" "&plugin;/mmt-auto-import.yaml"; echo "Copied default mmt config to &plugin;/mmt-auto-import.yaml. Please edit output directory"; fi
 	cp &plugin;/install/&mmtversion;/mmt /usr/sbin/mmt
 	chown root:root /usr/sbin/mmt
 	chmod 755 /usr/sbin/mmt
