@@ -4,10 +4,11 @@
 <!DOCTYPE PLUGIN [
 	<!ENTITY name      "media-management-tool">
 	<!ENTITY author    "slink42">
-	<!ENTITY version   "2023.01.15">
+	<!ENTITY version   "2023.01.17">
 	<!ENTITY mmtversion "1.6">
 	<!ENTITY repo      "https://github.com/KonradIT/mmt/releases/download">
-	<!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/mmt/development/distribution/unraid-plugin/media-management-tool.plg">
+	<!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/mmt-unraid/development/unraid-plugin/media-management-tool.plg">
+	<!ENTITY pluginConfigURL "https://raw.githubusercontent.com/&author;/mmt-unraid/development/mmt-config/mmt-auto-import.yaml">
 	<!ENTITY plugin    "/boot/config/plugins/&name;">
 	<!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
@@ -66,6 +67,10 @@ Android: All, but with Pixel 6 (Google Camera) specific fixes
 <FILE Name="&plugin;/install/mmt_&mmtversion;_linux_amd64.tar.gz">
 <URL>&repo;/v&mmtversion;/mmt_&mmtversion;_linux_amd64.tar.gz</URL>
 </FILE>
+</FILE>
+<FILE Name="&plugin;/install/example-mmt-auto-import.yaml">
+<URL>&pluginConfigURL;</URL>
+</FILE>
 
 <!--
 Install script.
@@ -80,6 +85,7 @@ Install script.
 	mkdir -p &plugin;/install/&mmtversion;
 	tar -vxzf &plugin;/install/mmt_&mmtversion;_linux_amd64.tar.gz -C &plugin;/install/&mmtversion;
 	echo "done"
+	[ -f "&plugin;/mmt-auto-import.yaml" ] || () cp "&plugin;/install/example-mmt-auto-import.yaml" "&plugin;/mmt-auto-import.yaml" && echo "default config copied from &plugin;/install/example-mmt-auto-import.yaml to &plugin;/mmt-auto-import.yaml. Please edit output directory")
 	cp &plugin;/install/&mmtversion;/mmt /usr/sbin/mmt
 	chown root:root /usr/sbin/mmt
 	chmod 755 /usr/sbin/mmt

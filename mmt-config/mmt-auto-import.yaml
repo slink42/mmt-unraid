@@ -1,0 +1,10 @@
+# Specifiy the root directory to copy media under
+output: /mnt/user0/priority/video/media-management
+date: "yyyy-mm-dd"
+connection: sd_card
+location:
+  format: 1 # Different formats supported: 1 and 2 (default 1)
+  fallback: "Unknown Location" # Leave empty to not make a folder for ungeolocated footage
+  order:
+  - date
+  - location

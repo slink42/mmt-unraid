@@ -29,18 +29,12 @@ VALIDDIRS=("/DCIM/[0-9][0-9][0-9]___[0-9][0-9]" "/DCIM/[0-9][0-9][0-9]CANON" "/D
 ## location to move files to. use date command to ensure unique dir
 DESTINATION_ROOT="/mnt/user/priority/video"
 
-
 ## SET THIS FOR YOUR SYSTEM:
 ## location to move files to. use date command to ensure unique dir
 DESTINATION="${DESTINATION_ROOT}/photo_import/$(date +"%Y-%m-%d-%H-%M-%S-%N")/"
 
-## Location which MMT will copy photos/videos to
-# MMT_DESTINATION="${DESTINATION_ROOT}/media-management/"
-
 ## location of mmt config yaml
-#MMT_CONFIG="/boot/config/plugins/unassigned.devices/mmt-auto-import-gopro.yaml"
-MMT_CONFIG_GOPRO="/boot/config/plugins/unassigned.devices/mmt-auto-import-gopro.yaml"
-MMT_CONFIG_DJI="/boot/config/plugins/unassigned.devices/mmt-auto-import-dji.yaml"
+MMT_CONFIG="/boot/config/plugins/unassigned.devices/mmt-auto-import.yaml"
 
 ## SET THIS FOR YOUR SYSTEM:
 ## change to "move" when you are confident everything is working. Default value "copy"
@@ -108,13 +102,13 @@ case $ACTION in
         log_all "Started"
         log_debug "Logging to $LOGFILE"
 
-	log_debug "Using mmt to copying GoPro media file to organised structure under output path defined in ${MMT_CONFIG_GOPRO}"
+	log_debug "Using mmt to copying GoPro media file to organised structure under output path defined in ${MMT_CONFIG}"
 	log_debug "mmt gopro config: ${MMT_CONFIG_GOPRO}"
-	mmt import --config "${MMT_CONFIG_GOPRO}" --input "${MOUNTPOINT}" --date "yyyy-mm-dd" | (head -n 10; tail -n 1000)
+	mmt import --config "${MMT_CONFIG_GOPRO}" --input "${MOUNTPOINT}" --date "yyyy-mm-dd" --camera "gopro" --prefix "GoPro_" | (head -n 10; tail -n 1000)
 
-        log_debug "Using mmt to copying DJI media file to organised structure under output path defined in ${MMT_CONFIG_DJI}"
-        log_debug "mmt gopro config: ${MMT_CONFIG_DJI}"
-	mmt import --config "${MMT_CONFIG_DJI}" --input "${MOUNTPOINT}" --date "yyyy-mm-dd" | (head -n 10; tail -n 1000)
+  log_debug "Using mmt to copying DJI media file to organised structure under output path defined in ${MMT_CONFIG}"
+  log_debug "mmt gopro config: ${MMT_CONFIG_DJI}"
+	mmt import --config "${MMT_CONFIG_DJI}" --input "${MOUNTPOINT}" --date "yyyy-mm-dd" --camera "dji" --prefix "DJI_"  | (head -n 10; tail -n 1000)
 	log_debug "Finished copying media file to organised structure under output path defined in ${MMT_CONFIG}"
 
         RSYNCFLAG=""
