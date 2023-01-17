@@ -89,7 +89,7 @@ Install script.
 	echo "| Copying default Unassigned Devices script to &plugin;/MediaManagerImport.sh ..." 
 	if [ -f "&plugin;/MediaManagerImport.sh" ] || ! [ -f "&plugin;/install/MediaManagerImport.sh" ]; then echo "&plugin;/MediaManagerImport.sh exists, leaving exiting copy in place"; else cp "&plugin;/install/MediaManagerImport.sh" "&plugin;/MediaManagerImport.sh"; chown root:root "&plugin;/MediaManagerImport.sh"; chmod 755 "&plugin;/MediaManagerImport.sh"; echo "Copied default Unassigned Drives script to &plugin;/MediaManagerImport.sh."; fi
 	echo "done"
-	echo "| Copying default mmt config from example config ..." 
+	echo "| Copying default mmt config from example config to &plugin;/mmt-auto-import.yaml ..." 
 	if [ -f "&plugin;/mmt-auto-import.yaml" ] || ! [ -f "&plugin;/install/example-mmt-auto-import.yaml" ]; then echo "&plugin;/mmt-auto-import.yaml exists, leaving existing copy in place" ; else cp "&plugin;/install/example-mmt-auto-import.yaml" "&plugin;/mmt-auto-import.yaml"; echo "Copied default mmt config to &plugin;/mmt-auto-import.yaml. Please edit output directory"; fi
 	echo "done"
 	cp &plugin;/install/&mmtversion;/mmt /usr/sbin/mmt
