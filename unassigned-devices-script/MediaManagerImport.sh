@@ -34,7 +34,7 @@ DESTINATION_ROOT="/mnt/user/priority/video"
 DESTINATION="${DESTINATION_ROOT}/photo_import/$(date +"%Y-%m-%d-%H-%M-%S-%N")/"
 
 ## location of mmt config yaml
-MMT_CONFIG="/boot/config/plugins/unassigned.devices/mmt-auto-import.yaml"
+MMT_CONFIG="/boot/config/plugins/media-management-tool/mmt-auto-import.yaml"
 
 ## SET THIS FOR YOUR SYSTEM:
 ## change to "move" when you are confident everything is working. Default value "copy"
