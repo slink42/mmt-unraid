@@ -4,8 +4,8 @@
 <!DOCTYPE PLUGIN [
 	<!ENTITY name      "media-management-tool">
 	<!ENTITY author    "slink42">
-	<!ENTITY version   "2023.01.18">
-	<!ENTITY mmtversion "1.6">
+	<!ENTITY version   "2023.03.03">
+	<!ENTITY mmtversion "1.8">
 	<!ENTITY repo      "https://github.com/KonradIT/mmt/releases/download">
 	<!ENTITY pluginURLRoot "https://raw.githubusercontent.com/&author;/mmt-unraid/master">
 	<!ENTITY plugin    "/boot/config/plugins/&name;">
